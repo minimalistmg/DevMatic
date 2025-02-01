@@ -25,7 +25,7 @@
    },
    {
       "name":"Node.js",
-      "description":"JavaScript runtime built on Chrome\'s V8 JavaScript engine",
+      "description":"JavaScript runtime built on Chrome\\'s V8 JavaScript engine",
       "comments":"NPM is included with Node.js",
       "version":"22.13.1",
       "url":"https://nodejs.org/dist/v22.13.1/node-v22.13.1.tar.gz",

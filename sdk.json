@@ -1,58 +1,58 @@
 [
-    {
-        "name": "7-Zip",
-        "description": "7-Zip file archiver with a high compression ratio",
-        "version": "24.09",
-        "url": "https://github.com/ip7z/7zip/archive/refs/tags/24.09.zip"
-    },
-    {
-        "name": "PostgreSQL",
-        "description": "PostgreSQL is a powerful, open source object-relational database system",
-        "version": "lts",
-        "url": "https://www.postgresql.org/ftp/source/vlts/postgresql-lts.tar.gz"
-    },
-    {
-        "name": "Python",
-        "description": "Python programming language",
-        "version": "3.12.7",
-        "url": "https://www.python.org/ftp/python/3.12.7/Python-3.12.7.tgz",
-        "packages": [
-            "pip latest",
-            "django 5.1.5",
-            "postgres 16.1.0",
-            "sqlite3 5.1.7"
-        ]
-    },
-    {
-        "name": "Node.js",
-        "description": "JavaScript runtime built on Chrome'\''s V8 JavaScript engine",
-        "comments": "NPM is included with Node.js",
-        "version": "22.13.1",
-        "url": "https://nodejs.org/dist/v22.13.1/node-v22.13.1.tar.gz",
-        "packages": [
-            "npm latest",
-            "pg 16.1.0",
-            "sqlite3 5.1.7",
-            "typeorm 0.3.20"
-        ]
-    },
-    {
-        "name": "Visual Studio Code",
-        "description": "Code editor redefined and optimized for building and debugging modern web and cloud applications",
-        "version": "1.96.4",
-        "url": "https://github.com/microsoft/vscode/archive/refs/tags/1.96.4.tar.gz",
-        "extensions": [
-            "python",
-            "jupyter",
-            "sqltools",
-            "postgres",
-            "sqlite"
-        ]
-    },
-    {
-        "name": "GitHub Desktop",
-        "description": "Tarball of GitHub Desktop application",
-        "version": "3.4.15",
-        "url": "https://github.com/desktop/desktop/archive/refs/tags/release-3.4.15.tar.gz"
-    }
+   {
+      "name":"7-Zip",
+      "description":"7-Zip file archiver with a high compression ratio",
+      "version":"24.09",
+      "url":"https://github.com/ip7z/7zip/archive/refs/tags/24.09.zip"
+   },
+   {
+      "name":"PostgreSQL",
+      "description":"PostgreSQL is a powerful, open source object-relational database system",
+      "version":"lts",
+      "url":"https://www.postgresql.org/ftp/source/vlts/postgresql-lts.tar.gz"
+   },
+   {
+      "name":"Python",
+      "description":"Python programming language",
+      "version":"3.12.7",
+      "url":"https://www.python.org/ftp/python/3.12.7/Python-3.12.7.tgz",
+      "packages":[
+         "pip latest",
+         "django 5.1.5",
+         "postgres 16.1.0",
+         "sqlite3 5.1.7"
+      ]
+   },
+   {
+      "name":"Node.js",
+      "description":"JavaScript runtime built on Chrome's V8 JavaScript engine",
+      "comments":"NPM is included with Node.js",
+      "version":"22.13.1",
+      "url":"https://nodejs.org/dist/v22.13.1/node-v22.13.1.tar.gz",
+      "packages":[
+         "npm latest",
+         "pg 16.1.0",
+         "sqlite3 5.1.7",
+         "typeorm 0.3.20"
+      ]
+   },
+   {
+      "name":"Visual Studio Code",
+      "description":"Code editor redefined and optimized for building and debugging modern web and cloud applications",
+      "version":"1.96.4",
+      "url":"https://github.com/microsoft/vscode/archive/refs/tags/1.96.4.tar.gz",
+      "extensions":[
+         "python",
+         "jupyter",
+         "sqltools",
+         "postgres",
+         "sqlite"
+      ]
+   },
+   {
+      "name":"GitHub Desktop",
+      "description":"Tarball of GitHub Desktop application",
+      "version":"3.4.15",
+      "url":"https://github.com/desktop/desktop/archive/refs/tags/release-3.4.15.tar.gz"
+   }
 ]

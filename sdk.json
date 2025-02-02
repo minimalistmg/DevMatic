@@ -9,7 +9,7 @@
       "name":"PostgreSQL",
       "description":"PostgreSQL is a powerful, open source object-relational database system",
       "version":"lts",
-      "url":"https://www.postgresql.org/ftp/source/vlts/postgresql-lts.tar.gz"
+      "url":"https://ftp.postgresql.org/pub/source/v17.2/postgresql-17.2.tar.gz"
    },
    {
       "name":"Python",

@@ -8,7 +8,7 @@
    {
       "name":"PostgreSQL",
       "description":"To manage and store data in a powerful, open source object-relational database system",
-      "version":"lts",
+      "version":"17.2",
       "url":"https://ftp.postgresql.org/pub/source/v17.2/postgresql-17.2.tar.gz"
    },
    {

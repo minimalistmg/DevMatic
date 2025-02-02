@@ -3,6 +3,6 @@
       "name":"PostgreSQL",
       "description":"To manage and store data in a powerful, open source object-relational database system",
       "version":"17.2-3",
-      "url":"https://get.enterprisedb.com/postgresql/postgresql-17.2-3-windows-x64.exe"
+      "url":"https://get.enterprisedb.com/postgresql/postgresql-17.2-3-windows-x64-binaries.zip"
    }
 ]

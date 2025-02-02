@@ -1,19 +1,19 @@
 [
    {
       "name":"7-Zip",
-      "description":"7-Zip file archiver with a high compression ratio",
+      "description":"To unzip and compress files",
       "version":"24.09",
       "url":"https://github.com/ip7z/7zip/archive/refs/tags/24.09.zip"
    },
    {
       "name":"PostgreSQL",
-      "description":"PostgreSQL is a powerful, open source object-relational database system",
+      "description":"To manage and store data in a powerful, open source object-relational database system",
       "version":"lts",
       "url":"https://ftp.postgresql.org/pub/source/v17.2/postgresql-17.2.tar.gz"
    },
    {
       "name":"Python",
-      "description":"Python programming language",
+      "description":"To develop software using the Python programming language",
       "version":"3.12.7",
       "url":"https://www.python.org/ftp/python/3.12.7/Python-3.12.7.tgz",
       "packages":[
@@ -25,7 +25,7 @@
    },
    {
       "name":"Node.js",
-      "description":"JavaScript runtime built on Chrome''s V8 JavaScript engine",
+      "description":"To run JavaScript applications outside of a web browser",
       "comments":"NPM is included with Node.js",
       "version":"22.13.1",
       "url":"https://nodejs.org/dist/v22.13.1/node-v22.13.1.tar.gz",
@@ -38,7 +38,7 @@
    },
    {
       "name":"Visual Studio Code",
-      "description":"Code editor redefined and optimized for building and debugging modern web and cloud applications",
+      "description":"To edit and debug modern web and cloud applications",
       "version":"1.96.4",
       "url":"https://github.com/microsoft/vscode/archive/refs/tags/1.96.4.tar.gz",
       "extensions":[
@@ -51,7 +51,7 @@
    },
    {
       "name":"GitHub Desktop",
-      "description":"Tarball of GitHub Desktop application",
+      "description":"To manage Git repositories with a graphical interface",
       "version":"3.4.15",
       "url":"https://github.com/desktop/desktop/archive/refs/tags/release-3.4.15.tar.gz"
    }

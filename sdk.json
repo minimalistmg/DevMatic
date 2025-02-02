@@ -1,11 +1,5 @@
 [
    {
-      "name":"7-Zip",
-      "description":"To unzip and compress files",
-      "version":"24.09",
-      "url":"https://github.com/ip7z/7zip/archive/refs/tags/24.09.zip"
-   },
-   {
       "name":"PostgreSQL",
       "description":"To manage and store data in a powerful, open source object-relational database system",
       "version":"17.2",

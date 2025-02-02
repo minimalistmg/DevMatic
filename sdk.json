@@ -48,5 +48,20 @@
       "description":"Tarball of GitHub Desktop application",
       "version":"3.4.15",
       "url":"https://desktop.githubusercontent.com/releases/3.4.15-3fea2a10/GitHubDesktopSetup-x64.msi"
+   },
+   {
+      "name":"Nginx",
+      "description":"High performance web server and reverse proxy server",
+      "version":"1.26.2",
+      "url":"https://nginx.org/download/nginx-1.26.2.zip"
+   },
+   {
+      "name":"PHP",
+      "description":"PHP scripting language",
+      "version":"7.4.9",
+      "url":"https://windows.php.net/downloads/releases/archives/php-7.4.9-Win32-vc15-x64.zip",
+      "packages":[
+         "composer latest"
+      ]
    }
 ]

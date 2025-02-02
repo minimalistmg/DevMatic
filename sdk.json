@@ -2,51 +2,7 @@
    {
       "name":"PostgreSQL",
       "description":"To manage and store data in a powerful, open source object-relational database system",
-      "version":"17.2",
-      "url":"https://ftp.postgresql.org/pub/source/v17.2/postgresql-17.2.tar.gz"
-   },
-   {
-      "name":"Python",
-      "description":"To develop software using the Python programming language",
-      "version":"3.12.7",
-      "url":"https://www.python.org/ftp/python/3.12.7/Python-3.12.7.tgz",
-      "packages":[
-         "pip latest",
-         "django 5.1.5",
-         "postgres 16.1.0",
-         "sqlite3 5.1.7"
-      ]
-   },
-   {
-      "name":"Node.js",
-      "description":"To run JavaScript applications outside of a web browser",
-      "comments":"NPM is included with Node.js",
-      "version":"22.13.1",
-      "url":"https://nodejs.org/dist/v22.13.1/node-v22.13.1.tar.gz",
-      "packages":[
-         "npm latest",
-         "pg 16.1.0",
-         "sqlite3 5.1.7",
-         "typeorm 0.3.20"
-      ]
-   },
-   {
-      "name":"Visual Studio Code",
-      "description":"To edit and debug modern web and cloud applications",
-      "version":"1.96.4",
-      "url":"https://github.com/microsoft/vscode/archive/refs/tags/1.96.4.tar.gz",
-      "extensions":[
-         "python",
-         "jupyter",
-         "sqltools",
-         "postgres",
-         "sqlite"
-      ]
-   },
-   {
-      "name":"GitHub Desktop",
-      "description":"To manage Git repositories with a graphical interface",
-      "version":"3.4.15",
-      "url":"https://github.com/desktop/desktop/archive/refs/tags/release-3.4.15.tar.gz"
+      "version":"17.2-3",
+      "url":"https://get.enterprisedb.com/postgresql/postgresql-17.2-3-windows-x64.exe"
    }
 ]

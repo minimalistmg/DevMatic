@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "devmatic"
+version = "1.0.0"
+description = "A multi-purpose development environment installer tool for Windows"
+authors = [{name = "DevMatic Team"}]
+license = {file = "LICENSE"}
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "typer",
+    "rich",
+    "aiohttp",
+    "pywin32",
+]
+
+[project.scripts]
+devmatic = "devmatic.cli.main:app"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-v --tb=short"

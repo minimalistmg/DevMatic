@@ -1,67 +1,72 @@
 [
-   {
-      "name":"PostgreSQL",
-      "description":"To manage and store data in a powerful, open source object-relational database system",
-      "version":"17.2-3",
-      "url":"https://get.enterprisedb.com/postgresql/postgresql-17.2-3-windows-x64-binaries.zip"
-   },
-   {
-      "name":"Python",
-      "description":"Python programming language",
-      "version":"3.12.7",
-      "url":"https://www.python.org/ftp/python/3.12.7/python-3.12.7-embed-amd64.zip",
-      "packages":[
-         "pip latest",
-         "django 5.1.5",
-         "postgres 16.1.0",
-         "sqlite3 5.1.7"
-      ]
-   },
-   {
-      "name":"Node.js",
-      "description":"JavaScript runtime built on Chrome''s V8 JavaScript engine",
-      "comments":"NPM is included with Node.js",
-      "version":"22.13.1",
-      "url":"https://nodejs.org/download/release/v22.13.1/node-v22.13.1-win-x64.zip",
-      "packages":[
-         "npm latest",
-         "pg 16.1.0",
-         "sqlite3 5.1.7",
-         "typeorm 0.3.20"
-      ]
-   },
-   {
-      "name":"Visual Studio Code",
-      "description":"Code editor redefined and optimized for building and debugging modern web and cloud applications",
-      "version":"1.96.4",
-      "url":"https://vscode.download.prss.microsoft.com/dbazure/download/stable/cd4ee3b1c348a13bafd8f9ad8060705f6d4b9cba/VSCode-win32-x64-1.96.4.zip",
-      "extensions":[
-         "python",
-         "jupyter",
-         "sqltools",
-         "postgres",
-         "sqlite"
-      ]
-   },
-   {
-      "name":"GitHub Desktop",
-      "description":"Tarball of GitHub Desktop application",
-      "version":"3.4.15",
-      "url":"https://desktop.githubusercontent.com/releases/3.4.15-3fea2a10/GitHubDesktopSetup-x64.msi"
-   },
-   {
-      "name":"Nginx",
-      "description":"High performance web server and reverse proxy server",
-      "version":"1.26.2",
-      "url":"https://nginx.org/download/nginx-1.26.2.zip"
-   },
-   {
-      "name":"PHP",
-      "description":"PHP scripting language",
-      "version":"7.4.9",
-      "url":"https://windows.php.net/downloads/releases/archives/php-7.4.9-Win32-vc15-x64.zip",
-      "packages":[
-         "composer latest"
-      ]
-   }
+  {
+    "installed_date": "2025-02-02T19:16:38.599922",
+    "last_updated": "2025-02-02T19:16:38.599922",
+    "name": "PostgreSQL",
+    "previous_version": null,
+    "status": "active",
+    "update_count": 0,
+    "version": "17.2-3",
+    "version_history": []
+  },
+  {
+    "installed_date": "2025-02-02T19:16:41.198601",
+    "last_updated": "2025-02-02T19:16:41.198601",
+    "name": "Python",
+    "previous_version": null,
+    "status": "active",
+    "update_count": 0,
+    "version": "3.12.7",
+    "version_history": []
+  },
+  {
+    "installed_date": "2025-02-02T19:16:56.167922",
+    "last_updated": "2025-02-02T19:16:56.167922",
+    "name": "Node.js",
+    "previous_version": null,
+    "status": "active",
+    "update_count": 0,
+    "version": "22.13.1",
+    "version_history": []
+  },
+  {
+    "installed_date": "2025-02-02T19:17:25.615247",
+    "last_updated": "2025-02-02T19:17:25.615247",
+    "name": "Visual Studio Code",
+    "previous_version": null,
+    "status": "active",
+    "update_count": 0,
+    "version": "1.96.4",
+    "version_history": []
+  },
+  {
+    "installed_date": "2025-02-02T19:18:45.517703",
+    "last_updated": "2025-02-02T19:18:45.517703",
+    "name": "Nginx",
+    "previous_version": null,
+    "status": "active",
+    "update_count": 0,
+    "version": "1.26.2",
+    "version_history": []
+  },
+  {
+    "installed_date": "2025-02-02T19:19:13.601907",
+    "last_updated": "2025-02-02T19:19:13.601907",
+    "name": "PHP",
+    "previous_version": null,
+    "status": "active",
+    "update_count": 0,
+    "version": "7.4.9",
+    "version_history": []
+  },
+  {
+    "installed_date": "2025-02-02T21:10:31.345976",
+    "last_updated": "2025-02-02T21:10:31.345976",
+    "name": "GitHub Desktop",
+    "previous_version": null,
+    "status": "active",
+    "update_count": 0,
+    "version": "3.4.15",
+    "version_history": []
+  }
 ]

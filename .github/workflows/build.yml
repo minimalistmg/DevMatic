@@ -1,45 +1,65 @@
 name: Build and Test
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  test:
+  build:
     runs-on: windows-latest
     strategy:
       matrix:
-        python-version: [3.8, 3.9, "3.10"]
+        python-version: ["3.8", "3.9", "3.10", "3.11"]
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python
-      uses: actions/setup-python@v2
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -e ".[dev]"
-    - name: Run tests
-      run: pytest tests/
-
-  build:
-    needs: test
-    runs-on: windows-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.9'
+    
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-    - name: Build with PyInstaller
+        pip install pyinstaller
+    
+    - name: Run tests
+      run: |
+        pytest tests/
+    
+    - name: Check code formatting
+      run: |
+        black --check src/
+        isort --check-only src/
+    
+    - name: Run linting
+      run: |
+        flake8 src/
+    
+    - name: Build package
+      run: |
+        python -m build
+        
+    - name: Build executable
       run: |
         python scripts/build.py
-    - name: Upload artifact
-      uses: actions/upload-artifact@v2
+        
+    - name: Install Inno Setup
+      run: |
+        choco install innosetup
+        
+    - name: Create installer
+      run: |
+        python scripts/create_installer.py
+        
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
       with:
-        name: devmatic-windows
-        path: dist/devmatic.exe 
+        name: devmatic-release
+        path: |
+          dist/devmatic.exe
+          dist/DevMatic_Setup_*.exe 

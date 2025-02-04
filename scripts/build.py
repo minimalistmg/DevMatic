@@ -13,8 +13,8 @@ def clean_build():
             shutil.rmtree(dir_name)
     print("✓ Cleaned build directories")
 
-def copy_sdk_files():
-    """Copy SDK template files"""
+def create_sdk_files():
+    """Create SDK template files"""
     sdk_dir = Path('dist/SDK')
     sdk_dir.mkdir(parents=True, exist_ok=True)
     
@@ -33,6 +33,7 @@ def copy_sdk_files():
         json.dump([], f, indent=2)
     
     print("✓ Created SDK directory structure")
+    return sdk_dir
 
 def build_executable():
     """Build the DevMatic executable"""
@@ -40,29 +41,21 @@ def build_executable():
         # Clean previous builds
         clean_build()
         
-        # Build arguments
-        build_args = [
-            'src/devmatic/cli/main.py',
-            '--name=devmatic',
-            '--onefile',
-            '--console',
-            '--clean',
-            '--add-data=SDK;SDK',
-            '--icon=resources/devmatic.ico',
-            # Add version info
-            '--version-file=version.txt',
-            # Add manifest for Windows
-            '--manifest=resources/devmatic.manifest',
-            # Optimize
-            '--noupx',
-            '--strip'
-        ]
+        # Create SDK files first
+        sdk_dir = create_sdk_files()
         
+        # Get the path to the spec file in root directory
+        script_dir = Path(__file__).parent
+        root_dir = script_dir.parent
+        spec_file = root_dir / 'devmatic.spec'
+        
+        if not spec_file.exists():
+            print(f"✗ Spec file not found at: {spec_file}")
+            return False
+            
         print("Building DevMatic executable...")
-        PyInstaller.__main__.run(build_args)
-        
-        # Copy SDK files
-        copy_sdk_files()
+        # Use spec file for build configuration with correct path
+        PyInstaller.__main__.run([str(spec_file), '--clean'])
         
         print("✓ Build completed successfully")
         return True

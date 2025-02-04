@@ -1,20 +1,15 @@
 """
-DevMatic Utilities Package
+DevMatic Utilities
 
-This package provides utility functions and classes used throughout DevMatic,
-including file downloads, hash verification, logging, and Windows-specific utilities.
+Provides download and formatting utilities for the DevMatic CLI.
 """
 
-from .download import download_file, download_with_progress
-from .hash import verify_hash, calculate_hash
-from .logger import setup_logger
-from .windows import WindowsUtils
+from .download import download_file_async, verify_file_hash
+from .format import format_size, format_time
 
 __all__ = [
-    "download_file",
-    "download_with_progress",
-    "verify_hash",
-    "calculate_hash",
-    "setup_logger",
-    "WindowsUtils"
+    'download_file_async',
+    'verify_file_hash',
+    'format_size',
+    'format_time'
 ] 

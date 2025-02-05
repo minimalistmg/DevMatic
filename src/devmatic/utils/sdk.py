@@ -19,8 +19,12 @@ from datetime import datetime
 from rich.console import Console
 from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn
 from rich.table import Table
-from rich.prompt import Confirm
+from rich.prompt import Prompt, Confirm
 from rich import box
+from rich.live import Live
+from rich.panel import Panel
+from rich.layout import Layout
+from rich.text import Text
 
 from .format import format_size, format_time
 
@@ -29,6 +33,7 @@ DEVMATIC_DIR = ROOT_DIR / '.devmatic'
 DOWNLOAD_DIR = DEVMATIC_DIR / 'downloads'
 APPS_JSON_FILE = DEVMATIC_DIR / 'apps.json'
 SDK_JSON_FILE = DEVMATIC_DIR / 'sdk.json'
+SDK_DIR = DEVMATIC_DIR / 'sdk'
 
 console = Console()
 
@@ -37,63 +42,131 @@ def ensure_directories_and_files():
     DOWNLOAD_DIR.mkdir(parents=True, exist_ok=True)
     APPS_JSON_FILE.touch(exist_ok=True)
     SDK_JSON_FILE.touch(exist_ok=True)
+    SDK_DIR.mkdir(parents=True, exist_ok=True)
 
 def fetch_apps_data():
     """Fetch Apps data from remote JSON with status indicator"""
-    with Status("[bold blue]Fetching available Apps...", spinner="dots") as status:
+    with Status("[bold blue]Fetching Apps...", spinner="dots") as status:
         try:
-            with urllib.request.urlopen("https://raw.githubusercontent.com/minimalistmg/DevMatic/refs/heads/main/src/devmatic/apps/apps.json") as response:
+            with urllib.request.urlopen("https://raw.githubusercontent.com/minimalistmg/DevMatic/main/src/devmatic/apps/apps.json") as response:
                 data = json.loads(response.read())
-                status.update("[bold green]✓ Apps list fetched successfully!")
+                status.update("[bold green]✓ Apps Fetched Successfully!")
                 return data
         except Exception as e:
-            status.update(f"[bold red]✗ Error fetching Apps data: {e}")
-            raise RuntimeError(f"Failed to fetch Apps data: {e}")
+            status.update(f"[bold red]✗ Error Fetching Apps: {e}")
+            raise RuntimeError(f"Failed to Fetch Apps: {e}")
 
 def fetch_sdk_data():
     """Fetch SDK data from remote JSON with status indicator"""
-    with Status("[bold blue]Fetching available SDKs...", spinner="dots") as status:
+    with Status("[bold blue]Fetching SDKs...", spinner="dots") as status:
         try:
-            with urllib.request.urlopen("https://raw.githubusercontent.com/minimalistmg/DevMatic/refs/heads/main/src/devmatic/apps/toolkit.json") as response:
+            with urllib.request.urlopen("https://raw.githubusercontent.com/minimalistmg/DevMatic/main/src/devmatic/apps/toolkit.json") as response:
                 data = json.loads(response.read())
-                status.update("[bold green]✓ SDK list fetched successfully!")
+                status.update("[bold green]✓ SDKs Fetched Successfully!")
                 return data
         except Exception as e:
-            status.update(f"[bold red]✗ Error fetching SDK data: {e}")
-            raise RuntimeError(f"Failed to fetch SDK data: {e}")
+            status.update(f"[bold red]✗ Error Fetching SDKs: {e}")
+            raise RuntimeError(f"Failed to Fetch SDKs: {e}")
 
-def get_local_sdk_versions():
-    """Get versions of locally installed SDKs"""
+def get_apps_data():
+    """Get Apps data from local JSON file, returning an empty list if the file is not found."""
+    if APPS_JSON_FILE.exists():
+        with open(APPS_JSON_FILE, 'r') as f:
+            apps_data = json.load(f)
+            # Check if app folder names exist at ROOT_DIR level
+            existing_apps = [app for app in apps_data if (ROOT_DIR / app['name']).exists()]
+            return existing_apps
+    return []
+
+def get_sdk_data():
+    """Get SDK data from local JSON file, returning an empty list if the file is not found."""
+    if SDK_JSON_FILE.exists():
+        with open(SDK_JSON_FILE, 'r') as f:
+            sdk_data = json.load(f)
+            # Check if sdk folder names exist
+            existing_sdks = [sdk for sdk in sdk_data if (SDK_DIR / sdk['name']).exists()]
+            return existing_sdks
+    return []
+
+def create_menu(items, title, selected_index=0):
+    """Create a menu with arrow key selection"""
+    layout = Layout()
+    
+    menu_items = []
+    for idx, item in enumerate(items):
+        if idx == selected_index:
+            menu_items.append(f"[bold cyan]> {item['name']}[/bold cyan]")
+        else:
+            menu_items.append(f"  {item['name']}")
+    
+    menu_text = "\n".join(menu_items)
+    panel = Panel(
+        menu_text,
+        title=title,
+        border_style="blue",
+        padding=(1, 2)
+    )
+    
+    layout.update(panel)
+    return layout
+
+def select_with_arrows(items, title):
+    """Select item using arrow keys"""
+    import msvcrt  # Windows-specific keyboard input
+    
+    selected_index = 0
+    while True:
+        console.clear()
+        layout = create_menu(items, title, selected_index)
+        console.print(layout)
+        console.print("\n[dim]Use ↑/↓ arrows to navigate, Enter to select, Esc to cancel[/dim]")
+        
+        key = ord(msvcrt.getch())
+        if key == 27:  # Esc
+            return None
+        elif key == 13:  # Enter
+            return items[selected_index]
+        elif key == 72 and selected_index > 0:  # Up arrow
+            selected_index -= 1
+        elif key == 80 and selected_index < len(items) - 1:  # Down arrow
+            selected_index += 1
+
+def show_app_menu():
+    """Display interactive app selection menu"""
     try:
-        versions = {}
-        # Check both json and actual directories
-        if Path('sdk.json').exists():
-            with open('sdk.json', 'r') as f:
-                local_data = json.load(f)
-                for sdk in local_data:
-                    sdk_dir = DOWNLOAD_DIR / sdk['name']
-                    if sdk_dir.exists() and any(sdk_dir.iterdir()):
-                        versions[sdk['name']] = sdk['version']
-                    else:
-                        # Remove from json if directory doesn't exist
-                        remove_sdk_version(sdk['name'])
+        # Fetch apps data
+        with Status("[bold blue]Loading available apps...", spinner="dots") as status:
+            apps_data = fetch_apps_data()
+            time.sleep(0.5)  # Small delay for visual effect
+            status.update("[bold green]✓ Apps loaded successfully!")
+            time.sleep(0.5)
         
-        # Check for directories that exist but aren't in json
-        for sdk_dir in DOWNLOAD_DIR.iterdir():
-            if sdk_dir.is_dir() and sdk_dir.name not in versions:
-                versions[sdk_dir.name] = "unknown"
+        # Show app selection menu
+        selected_app = select_with_arrows(apps_data, "[bold]Select an App[/bold]")
+        if not selected_app:
+            return None
+            
+        # Show SDK requirements for selected app
+        console.clear()
+        console.print(f"\n[bold]SDK Requirements for {selected_app['name']}:[/bold]")
         
-        return versions
-    except FileNotFoundError:
-        # Check for existing directories even if json doesn't exist
-        versions = {}
-        if DOWNLOAD_DIR.exists():
-            for sdk_dir in DOWNLOAD_DIR.iterdir():
-                if sdk_dir.is_dir():
-                    versions[sdk_dir.name] = "unknown"
-        return versions
+        # Get required SDKs
+        required_sdks = selected_app.get('required_sdks', [])
+        if not required_sdks:
+            console.print("[yellow]No SDK requirements found for this app.[/yellow]")
+            return None
+            
+        # Fetch SDK data
+        sdk_data = fetch_sdk_data()
+        needed_sdks = [sdk for sdk in sdk_data if sdk['name'] in required_sdks]
+        
+        return show_sdk_menu(needed_sdks, selected_app['name'])
+        
+    except Exception as e:
+        console.print(f"[bold red]Error loading apps: {e}[/bold red]")
+        return None
 
-def show_sdk_menu(sdk_data):
+def show_sdk_menu(sdk_data, app_name):
     """Display interactive SDK menu"""
     margin = 2
     table_width = console.width - (margin * 2)
@@ -102,15 +175,10 @@ def show_sdk_menu(sdk_data):
     local_versions = get_local_sdk_versions()
     remote_names = {sdk["name"] for sdk in sdk_data}
     
-    # Only consider SDKs that actually exist
-    obsolete_sdks = [name for name in local_versions.keys() 
-                    if name not in remote_names 
-                    and (DOWNLOAD_DIR / name).exists()]
-    
     # Create table
     table = Table(
         show_header=True,
-        title="[white not italic]SDK Manager[/white not italic]",
+        title=f"[white not italic]Required SDKs for {app_name}[/white not italic]",
         width=table_width,
         show_edge=True,
         border_style="blue",
@@ -119,78 +187,59 @@ def show_sdk_menu(sdk_data):
     )
     
     # Add columns
-    id_width = 4
-    name_width = 20
-    version_width = 25  # Increased width for combined version/status
-    desc_width = table_width - id_width - name_width - version_width - 8
-    
-    table.add_column("#", width=id_width, justify="center", style="cyan")
-    table.add_column("Name", width=name_width, justify="left", style="bright_white", no_wrap=True)
-    table.add_column("Version / Status", width=version_width, justify="left", style="yellow")
-    table.add_column("Description", width=desc_width, justify="left", style="green", overflow="fold")
+    table.add_column("Status", width=10, justify="center", style="cyan")
+    table.add_column("Name", width=20, justify="left", style="bright_white", no_wrap=True)
+    table.add_column("Version", width=20, justify="left", style="yellow")
+    table.add_column("Description", justify="left", style="green", overflow="fold")
     
     # Track SDKs needing action
     needs_action = []
+    sdk_menu_items = []
     
-    # First add remote SDKs
-    for idx, sdk in enumerate(sdk_data, 1):
+    for sdk in sdk_data:
         name = sdk["name"]
         new_version = sdk["version"]
         local_version = local_versions.get(name)
         
         if local_version:
             if local_version != new_version:
-                # Show upgrade status
-                version_status = f"[yellow]v{local_version}[/yellow] [dim]→[/dim] [bold yellow]v{new_version}[/bold yellow]"
-                needs_action.append(("upgrade", name, new_version, local_version))
+                status = "⚠️ Update"
+                version_text = f"[yellow]v{local_version} → v{new_version}[/yellow]"
+                needs_action.append(("update", name, new_version, local_version))
             else:
-                # Show up-to-date status
-                version_status = f"[green]v{local_version} (current)[/green]"
+                status = "✓ Ready"
+                version_text = f"[green]v{local_version}[/green]"
         else:
-            # Show install status
-            version_status = f"[green]v{new_version} (install)[/green]"
+            status = "❌ Missing"
+            version_text = f"[red]Not installed[/red]"
             needs_action.append(("install", name, new_version, None))
         
         table.add_row(
-            f"[cyan]{idx}[/cyan]",
-            f"[bright_white]{name}[/bright_white]",
-            version_status,
-            f"[green]{sdk['description']}[/green]"
+            status,
+            name,
+            version_text,
+            sdk['description']
         )
-    
-    # Then add local-only SDKs that need removal
-    for name in obsolete_sdks:
-        idx += 1
-        version = local_versions[name]
-        version_status = f"[red]v{version} (remove)[/red]"
-        needs_action.append(("remove", name, version))
         
-        table.add_row(
-            f"[cyan]{idx}[/cyan]",
-            f"[bright_white]{name}[/bright_white]",
-            version_status,
-            "[dim]Package no longer available in remote SDK list[/dim]"
-        )
+        sdk_menu_items.append({
+            'name': f"{name} ({status})",
+            'action': needs_action[-1] if needs_action else None
+        })
     
     # Show table
     console.print("\n")
     console.print(table, justify="center")
     
-    # Show summary and ask for confirmation
     if needs_action:
-        console.print("\n[bold]Available actions:[/bold]")
-        for action, name, version, local_version in needs_action:
-            if action == "install":
-                console.print(f"[green]• Install {name} v{version}[/green]")
-            elif action == "upgrade":
-                console.print(f"[yellow]• Upgrade {name} from {local_version} to v{version}[/yellow]")
-            elif action == "remove":
-                console.print(f"[red]• Remove {name} v{version}[/red]")
+        console.print("\n[bold]Choose SDK to install/update:[/bold]")
+        selected_sdk = select_with_arrows(sdk_menu_items, "[bold]Select SDK Action[/bold]")
         
-        if Confirm.ask("\n[cyan]Would you like to proceed with selected actions?[/cyan]"):
-            return needs_action
+        if selected_sdk and selected_sdk['action']:
+            action = selected_sdk['action']
+            if Confirm.ask(f"\n[cyan]Proceed with {action[0]}ing {action[1]} v{action[2]}?[/cyan]"):
+                return [action]
     else:
-        console.print("\n[bold green]✨ All SDKs are up to date![/bold green]")
+        console.print("\n[bold green]✨ All required SDKs are installed and up to date![/bold green]")
         console.print("[dim]Your development environment is ready to go[/dim]")
     
     return None

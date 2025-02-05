@@ -1,14 +1,14 @@
 """
-Download Utilities for DevMatic
+Download utilities for DevMatic
 
-Provides async download functionality with progress tracking and hash verification.
+Provides functions for downloading and verifying files.
 """
 
-import aiohttp
-import asyncio
 import hashlib
 import time
 import shutil
+import asyncio
+import aiohttp
 from pathlib import Path
 from rich.console import Console
 from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, DownloadColumn, TransferSpeedColumn
@@ -19,7 +19,7 @@ console = Console()
 
 def verify_file_hash(file_path: Path, expected_hash: str) -> bool:
     """Verify file integrity using SHA256"""
-    if not file_path.exists() or not expected_hash:
+    if not file_path.exists():
         return False
         
     try:
@@ -57,19 +57,19 @@ async def download_file_async(url: str, destination: Path, description: str, fil
         
         # Configure TCP connector for better performance
         connector = aiohttp.TCPConnector(
-            limit=MAX_CHUNKS,
-            force_close=True,
-            enable_cleanup_closed=True,
-            ssl=False,
-            ttl_dns_cache=300,
-            use_dns_cache=True,
+            limit=MAX_CHUNKS,          # Maximum concurrent connections
+            force_close=True,          # Don't keep connections alive
+            enable_cleanup_closed=True, # Clean up closed connections
+            ssl=False,                 # Disable SSL for http
+            ttl_dns_cache=300,         # Cache DNS results
+            use_dns_cache=True,        # Enable DNS caching
         )
         
         # Configure client session
         timeout = aiohttp.ClientTimeout(
-            total=None,
-            connect=60,
-            sock_read=30
+            total=None,     # No total timeout
+            connect=60,     # Connection timeout
+            sock_read=30    # Socket read timeout
         )
         
         async with aiohttp.ClientSession(
@@ -169,7 +169,15 @@ async def download_file_async(url: str, destination: Path, description: str, fil
         return True
         
     except Exception as e:
-        console.print(f"[bold red]✗ Error downloading {description}: {str(e)}[/bold red]")
+        console.print(f"[bold red]✗ Error downloading {description}: {e}[/bold red]")
         if destination.exists():
             destination.unlink()
-        return False 
+        # Clean up temp directory if it exists
+        temp_dir = destination.parent / f"temp_{destination.stem}"
+        if temp_dir.exists():
+            shutil.rmtree(temp_dir)
+        return False
+
+def download_file(url: str, destination: Path, description: str, file_hash: str = None):
+    """Synchronous wrapper for async download"""
+    return asyncio.run(download_file_async(url, destination, description, file_hash)) 

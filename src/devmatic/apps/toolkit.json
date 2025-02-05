@@ -1,0 +1,75 @@
+[
+    {
+        "name": "PostgreSQL",
+        "description": "Open-source object-relational database",
+        "version": "17.2",
+        "url": "https://ftp.postgresql.org/pub/source/v17.2/postgresql-17.2.tar.gz"
+    },
+    {
+        "name": "Python",
+        "description": "Programming language for software development",
+        "version": "3.12.7",
+        "url": "https://www.python.org/ftp/python/3.12.7/Python-3.12.7.tgz",
+        "ensure_package_versions": [
+            "django==5.1.5",
+            "psycopg2==16.1.0",
+            "sqlite3==5.1.7"
+        ]
+    },
+    {
+        "name": "Node.js",
+        "description": "Run JavaScript outside the browser",
+        "comments": "NPM included",
+        "version": "22.13.1",
+        "url": "https://nodejs.org/dist/v22.13.1/node-v22.13.1.tar.gz",
+        "ensure_package_versions": [
+            "npm@10.1.0",
+            "pg@16.1.0",
+            "sqlite3@5.1.7",
+            "typeorm@0.3.20"
+        ]
+    },
+    {
+        "name": "Visual Studio Code",
+        "description": "Edit and debug web applications",
+        "version": "1.96.4",
+        "url": "https://github.com/microsoft/vscode/archive/refs/tags/1.96.4.tar.gz",
+        "extensions": {
+            "Python": "ms-python.python",
+            "Jupyter": "ms-toolsai.jupyter",
+            "SQL Tools": "mtxr.sqltools",
+            "SQL Tools > PostgreSQL": "cweijan.vscode-postgres",
+            "SQL Tools > SQLite": "alexcvzz.vscode-sqlite"
+        }
+    },
+    {
+        "name": "GitHub Desktop",
+        "description": "Manage Git repositories graphically",
+        "version": "3.4.15",
+        "url": "https://github.com/desktop/desktop/archive/refs/tags/release-3.4.15.tar.gz"
+    },
+    {
+        "name": "Git",
+        "description": "Track changes in source code",
+        "version": "2.42.0",
+        "url": "https://github.com/git/git/archive/refs/tags/v2.42.0.tar.gz"
+    },
+    {
+        "name": "Git Bash",
+        "description": "Command line interface for Git on Windows",
+        "version": "2.42.0",
+        "url": "https://github.com/git/git/archive/refs/tags/v2.42.0.tar.gz"
+    },
+    {
+        "name": "Postman",
+        "description": "Collaborative API development platform",
+        "version": "10.15.0",
+        "url": "https://www.postman.com/downloads/release-notes/"
+    },
+    {
+        "name": "WinSCP",
+        "description": "Secure file transfer tool",
+        "version": "5.21.6",
+        "url": "https://winscp.net/download/winscp-5.21.6-setup.exe"
+    }
+]

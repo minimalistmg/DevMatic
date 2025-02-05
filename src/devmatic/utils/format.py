@@ -1,3 +1,9 @@
+"""
+Format utilities for DevMatic
+
+Provides functions for formatting time and file sizes.
+"""
+
 def format_time(seconds):
     """Format seconds into minutes and seconds"""
     if seconds < 60:

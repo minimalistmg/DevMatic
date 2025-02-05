@@ -1,0 +1,148 @@
+[
+    {
+        "name": "Matic Workspace",
+        "description": "Workspace for managing development tools.",
+        "github_repo_link": "https://github.com/minimalistmg/matic-workspace",
+        "toolkit": [
+            "Git",
+            "Git Bash",
+            "GitHub Desktop",
+            "Visual Studio Code"
+        ],
+        "platform": [
+            "Windows"
+        ]
+    },
+    {
+        "name": "DevMatic Console App",
+        "description": "Command-line tool for development management.",
+        "github_repo_link": "https://github.com/minimalistmg/devmatic",
+        "ide": {
+            "app": "Visual Studio Code",
+            "extensions": []
+        },
+        "toolkit": [
+            {
+                "name": "Python"
+            }
+        ],
+        "platform": [
+            "Windows"
+        ]
+    },
+    {
+        "name": "JCP+ Web App",
+        "description": "Web app for JCP+ project management.",
+        "github_repo_link": "https://github.com/devmatic/jcp-plus-web-app",
+        "ide": {
+            "app": "Visual Studio Code",
+            "extensions": [
+                "Python",
+                "Jupyter",
+                "SQL Tools",
+                "SQL Tools > PostgreSQL",
+                "SQL Tools > SQLite"
+            ]
+        },
+        "toolkit": [
+            {
+                "name": "PHP",
+                "extensions": []
+            },
+            {
+                "name": "Nginx",
+                "https": true,
+                "backend": "PHP"
+            },
+            {
+                "name": "PostgreSQL",
+                "db_sync": true
+            },
+            {
+                "name": "Postman"
+            },
+            {
+                "name": "WinSCP"
+            }
+        ],
+        "platform": [
+            "Windows"
+        ]
+    },
+    {
+        "name": "Matic Desktop App",
+        "description": "Desktop app for managing Matic projects.",
+        "github_repo_link": "https://github.com/devmatic/matic-desktop-app",
+        "ide": {
+            "app": "Visual Studio Code",
+            "extensions": [
+                "Python",
+                "Jupyter",
+                "SQL Tools",
+                "SQL Tools > PostgreSQL",
+                "SQL Tools > SQLite"
+            ]
+        },
+        "toolkit": [
+            {
+                "name": "Node.js"
+            },
+            {
+                "name": "Postman"
+            }
+        ],
+        "platform": [
+            "Windows",
+            "macOS"
+        ]
+    },
+    {
+        "name": "Matic Web App",
+        "description": "Web platform for Matic project collaboration.",
+        "github_repo_link": "https://github.com/devmatic/matic-web-app",
+        "ide": {
+            "app": "Visual Studio Code",
+            "extensions": [
+                "Python",
+                "Jupyter",
+                "SQL Tools",
+                "SQL Tools > PostgreSQL",
+                "SQL Tools > SQLite"
+            ]
+        },
+        "toolkit": [
+            {
+                "name": "Nginx"
+            },
+            {
+                "name": "Python"
+            },
+            {
+                "name": "Postman"
+            },
+            {
+                "name": "PostgreSQL",
+                "db_sync": true
+            }
+        ],
+        "platform": [
+            "Windows"
+        ]
+    },
+    {
+        "name": "RemoteMatic",
+        "description": "Tool for remote access to Matic servers.",
+        "github_repo_link": "https://github.com/devmatic/remote-matic",
+        "toolkit": [
+            {
+                "name": "PuTTY"
+            },
+            {
+                "name": "Remote Desktop Connection"
+            }
+        ],
+        "platform": [
+            "Windows"
+        ]
+    }
+]
